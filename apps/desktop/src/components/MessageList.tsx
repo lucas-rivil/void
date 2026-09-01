@@ -283,57 +283,61 @@ export default function MessageList({
                 <div className="h-px flex-1 bg-white/[0.07]" />
               </div>
             )}
-            <div className="mb-4 flex gap-3.5">
-              <button
-                onClick={() => onOpenProfile?.(first.authorId)}
-                className="shrink-0 cursor-pointer"
-                disabled={!onOpenProfile}
-              >
-                <Avatar
-                  onionId={first.authorId}
-                  name={author.name}
-                  size={40}
-                />
-              </button>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-baseline gap-2.5">
-                  <button
-                    onClick={() => onOpenProfile?.(first.authorId)}
-                    disabled={!onOpenProfile}
-                    className="text-[15px] font-semibold hover:underline disabled:no-underline"
-                    style={{
-                      color:
-                        profileByOnion.get(first.authorId)?.accent ||
-                        author.color,
-                    }}
-                  >
-                    {author.name}
-                  </button>
-                  <span className="font-display text-[11px] font-medium text-mist-3">
-                    {formatTime(first.createdAt, dateLocale(locale))}
-                  </span>
-                </div>
-                {group.items.map((message) =>
-                  message.kind === "voice" ? (
-                    <VoiceBubble key={message.messageId} message={message} />
-                  ) : (
-                    <p
-                      key={message.messageId}
-                      className="whitespace-pre-wrap break-words text-[15px] leading-[1.5] text-mist-1/95"
+            <div
+              className="-mx-4 mb-0.5 rounded-lg px-4 py-1 transition-colors duration-100 hover:bg-white/[0.03] group/message"
+            >
+              <div className="mb-3 flex gap-3.5">
+                <button
+                  onClick={() => onOpenProfile?.(first.authorId)}
+                  className="mt-0.5 shrink-0 cursor-pointer opacity-80 transition-opacity group-hover/message:opacity-100"
+                  disabled={!onOpenProfile}
+                >
+                  <Avatar
+                    onionId={first.authorId}
+                    name={author.name}
+                    size={40}
+                  />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-2.5">
+                    <button
+                      onClick={() => onOpenProfile?.(first.authorId)}
+                      disabled={!onOpenProfile}
+                      className="text-[15px] font-semibold hover:underline disabled:no-underline"
+                      style={{
+                        color:
+                          profileByOnion.get(first.authorId)?.accent ||
+                          author.color,
+                      }}
                     >
-                      {message.body}
+                      {author.name}
+                    </button>
+                    <span className="font-display text-[11px] font-medium text-mist-3">
+                      {formatTime(first.createdAt, dateLocale(locale))}
+                    </span>
+                  </div>
+                  {group.items.map((message) =>
+                    message.kind === "voice" ? (
+                      <VoiceBubble key={message.messageId} message={message} />
+                    ) : (
+                      <p
+                        key={message.messageId}
+                        className="selectable whitespace-pre-wrap break-words text-[15px] leading-[1.5] text-mist-1/95"
+                      >
+                        {message.body}
+                      </p>
+                    )
+                  )}
+                  {showStatus && group.mine && (
+                    <p className="mt-1 font-display text-[10px] font-bold uppercase tracking-[0.1em] text-mist-3">
+                      {lastItem.status === "delivered"
+                        ? t("messages.delivered")
+                        : lastItem.status === "sent"
+                          ? t("messages.sent")
+                          : t("messages.awaitingRelay")}
                     </p>
-                  )
-                )}
-                {showStatus && group.mine && (
-                  <p className="mt-1 font-display text-[10px] font-bold uppercase tracking-[0.1em] text-mist-3">
-                    {lastItem.status === "delivered"
-                      ? t("messages.delivered")
-                      : lastItem.status === "sent"
-                        ? t("messages.sent")
-                        : t("messages.awaitingRelay")}
-                  </p>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>

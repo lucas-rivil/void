@@ -11,6 +11,7 @@ import {
 } from "../lib/void";
 import TorStatusCard from "./TorStatusCard";
 import Avatar, { invalidateAvatarCache } from "./Avatar";
+import ColorPicker from "./ColorPicker";
 import { useI18n } from "../lib/i18n";
 
 interface Props {
@@ -41,6 +42,7 @@ export default function IdentityPanel({
   const [accent, setAccent] = useState("");
   const [hasAvatar, setHasAvatar] = useState(false);
   const [phraseCopied, setPhraseCopied] = useState(false);
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -53,8 +55,6 @@ export default function IdentityPanel({
       })
       .catch(() => undefined);
   }, []);
-
-  const ACCENTS = ["", "#f5f5f5", "#e0e0e0", "#cfcfcf", "#b8b8b8", "#a0a0a0", "#9ecfff"];
 
   const pickAvatar = async (file: File) => {
     setError(null);
@@ -264,30 +264,43 @@ export default function IdentityPanel({
               className="focus-glow rounded-xl border border-white/[0.07] bg-void-2 px-3.5 py-2 text-[14px] text-mist-1 outline-none placeholder:text-mist-3"
             />
           </div>
-          <div className="mt-3">
+          <div className="relative mt-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-mist-3">
               {t("identity.accent")}
             </p>
-            <div className="mt-2 flex gap-2">
-              {ACCENTS.map((color) => (
-                <button
-                  key={color || "none"}
-                  onClick={() => setAccent(color)}
-                  className={`btn-press h-7 w-7 rounded-full border ${
-                    accent === color ? "border-white" : "border-white/15"
-                  }`}
-                  style={{
-                    backgroundColor: color || "transparent",
-                    backgroundImage: color
-                      ? undefined
-                      : "linear-gradient(45deg, #2a2a2a 25%, transparent 25%, transparent 75%, #2a2a2a 75%)",
-                    backgroundSize: color ? undefined : "8px 8px",
-                  }}
-                  title={color || "—"}
-                  aria-label={color || "none"}
+            <button
+              onClick={() => setColorPickerOpen(!colorPickerOpen)}
+              className="btn-press mt-2 flex items-center gap-3 rounded-xl border border-white/[0.07] bg-void-2 px-4 py-2.5 hover:border-white/20"
+            >
+              <span
+                className="h-6 w-6 rounded-lg border border-white/20"
+                style={{ backgroundColor: accent || "#f5f5f5" }}
+              />
+              <span className="font-mono text-[13px] uppercase text-mist-1">
+                {accent || "#f5f5f5"}
+              </span>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                className="ml-auto text-mist-3"
+              >
+                <path
+                  d="M1 3l4 4 4-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
                 />
-              ))}
-            </div>
+              </svg>
+            </button>
+            {colorPickerOpen && (
+              <ColorPicker
+                currentColor={accent || "#f5f5f5"}
+                onSave={(color) => setAccent(color)}
+                onClose={() => setColorPickerOpen(false)}
+              />
+            )}
           </div>
         </section>
 

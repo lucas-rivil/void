@@ -140,7 +140,8 @@ body {
 }
 
 input,
-textarea {
+textarea,
+.selectable {
   user-select: text;
 }
 
