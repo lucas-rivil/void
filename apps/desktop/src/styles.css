@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-void-0: #050505;
+  --color-void-1: #0a0a0a;
+  --color-void-2: #101010;
+  --color-void-3: #161616;
+  --color-void-4: #1d1d1d;
+  --color-void-5: #262626;
+  --color-void-6: #303030;
+
+  --color-mist-1: #f2f2f2;
+  --color-mist-2: #a3a3a3;
+  --color-mist-3: #5f5f5f;
+
+  --color-nebula: #ebebeb;
+  --color-nebula-hi: #ffffff;
+  --color-nebula-deep: #c2c2c2;
+  --color-nova: #f5f5f5;
+  --color-ambre: #b3b3b3;
+  --color-alerte: #efefef;
+
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.24s ease-out both;
+  --animate-view-fade: view-fade 0.22s ease-out both;
+  --animate-modal-in: modal-in 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-orbit: orbit 1.4s linear infinite;
+  --animate-spin-slow: orbit 16s linear infinite;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-drift-a: drift-a 26s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 34s ease-in-out infinite alternate;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes view-fade {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.995);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      filter: drop-shadow(0 0 1px currentColor);
+    }
+    50% {
+      filter: drop-shadow(0 0 7px currentColor);
+    }
+  }
+  @keyframes drift-a {
+    from {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.15);
+    }
+  }
+  @keyframes drift-b {
+    from {
+      transform: translate3d(3%, 2%, 0) scale(1.1);
+    }
+    to {
+      transform: translate3d(-3%, -3%, 0) scale(1);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-void-0);
+  color: var(--color-mist-1);
+  user-select: none;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+input,
+textarea {
+  user-select: text;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.08);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.16);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.btn-press {
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease,
+    color 0.2s ease, border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+.focus-glow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1.5px var(--color-nebula), 0 0 22px rgb(139 92 246 / 0.25);
+}
+
+.composer-glow {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.composer-glow:focus-within {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.3), 0 0 28px rgb(255 255 255 / 0.1);
+}
+
+.nebula-a {
+  background: radial-gradient(
+    ellipse 55% 45% at 30% 25%,
+    rgb(255 255 255 / 0.05),
+    transparent 70%
+  );
+}
+
+.nebula-b {
+  background: radial-gradient(
+    ellipse 50% 45% at 75% 75%,
+    rgb(255 255 255 / 0.035),
+    transparent 70%
+  );
+}
+
+.text-shadow-void {
+  text-shadow: 0 0 24px rgb(255 255 255 / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

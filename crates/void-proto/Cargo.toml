@@ -1,0 +1,13 @@
+[package]
+name = "void-proto"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+void-crypto.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+postcard = { version = "1", features = ["alloc"] }
+rand_core.workspace = true
+percent-encoding = "2"

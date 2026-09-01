@@ -1,0 +1,27 @@
+[package]
+name = "void-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+void-crypto.workspace = true
+void-proto.workspace = true
+void-tor.workspace = true
+void-store.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+qrcode = "0.14"
+tokio-socks = "0.5"
+ulid.workspace = true
+base64.workspace = true
+rand_core.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["wincrypt", "winbase", "dpapi"] }
+
+[dev-dependencies]
+tracing-subscriber.workspace = true

@@ -1,0 +1,20 @@
+[package]
+name = "void-tor"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+tokio.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+hex.workspace = true
+
+[dev-dependencies]
+void-crypto.workspace = true
+base64.workspace = true
+anyhow.workspace = true
+tracing-subscriber.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["jobapi2", "handleapi", "winnt", "processthreadsapi"] }
