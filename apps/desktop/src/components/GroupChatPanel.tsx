@@ -11,6 +11,7 @@ interface Props {
   myOnionId: string | null;
   online: boolean;
   peerProfiles: PeerProfileInfo[];
+  onOpenProfile: (onionId: string) => void;
   onInvite: () => void;
   onLeave: () => void;
 }
@@ -20,6 +21,7 @@ export default function GroupChatPanel({
   myOnionId,
   online,
   peerProfiles,
+  onOpenProfile,
   onInvite,
   onLeave,
 }: Props) {
@@ -105,6 +107,7 @@ export default function GroupChatPanel({
         emptyTitle={t("group.welcomeTitle", { name: group.name })}
         emptyHint={t("group.emptyHint")}
         peerProfiles={peerProfiles}
+        onOpenProfile={onOpenProfile}
       />
 
       <div className="relative z-10">

@@ -401,10 +401,11 @@ fn get_app_info(state: State<AppState>, app: AppHandle) -> AppInfo {
         .as_ref()
         .map(|e| e.app_info())
         .unwrap_or(AppInfo {
-            version: env!("CARGO_PKG_VERSION").to_string(),
+            version: String::new(),
             data_dir: String::new(),
             relay_queue: 0,
         });
+    info.version = app.package_info().version.to_string();
     if info.data_dir.is_empty() {
         if let Ok(dir) = app.path().app_data_dir() {
             info.data_dir = dir.display().to_string();

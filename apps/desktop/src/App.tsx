@@ -299,6 +299,7 @@ export default function App() {
               myOnionId={myOnionId}
               online={online}
               peerProfiles={peerProfiles}
+              onOpenProfile={(onionId) => setProfileCardFor(onionId)}
             />
           ) : view === "group" && activeGroup ? (
             <GroupChatPanel
@@ -306,6 +307,7 @@ export default function App() {
               myOnionId={myOnionId}
               online={online}
               peerProfiles={peerProfiles}
+              onOpenProfile={(onionId) => setProfileCardFor(onionId)}
                 onInvite={() => setInviteGroupFor(activeGroup.groupId)}
                 onLeave={() => {
                   if (

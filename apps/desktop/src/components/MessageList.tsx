@@ -18,6 +18,7 @@ interface Props {
   emptyTitle: string;
   emptyHint: string;
   peerProfiles?: PeerProfileInfo[];
+  onOpenProfile?: (onionId: string) => void;
 }
 
 interface Group {
@@ -204,6 +205,7 @@ export default function MessageList({
   emptyTitle,
   emptyHint,
   peerProfiles = [],
+  onOpenProfile,
 }: Props) {
   const { t, locale } = useI18n();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -282,15 +284,23 @@ export default function MessageList({
               </div>
             )}
             <div className="mb-4 flex gap-3.5">
-              <Avatar
-                onionId={first.authorId}
-                name={author.name}
-                size={40}
-              />
+              <button
+                onClick={() => onOpenProfile?.(first.authorId)}
+                className="shrink-0 cursor-pointer"
+                disabled={!onOpenProfile}
+              >
+                <Avatar
+                  onionId={first.authorId}
+                  name={author.name}
+                  size={40}
+                />
+              </button>
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2.5">
-                  <span
-                    className="text-[15px] font-semibold"
+                  <button
+                    onClick={() => onOpenProfile?.(first.authorId)}
+                    disabled={!onOpenProfile}
+                    className="text-[15px] font-semibold hover:underline disabled:no-underline"
                     style={{
                       color:
                         profileByOnion.get(first.authorId)?.accent ||
@@ -298,7 +308,7 @@ export default function MessageList({
                     }}
                   >
                     {author.name}
-                  </span>
+                  </button>
                   <span className="font-display text-[11px] font-medium text-mist-3">
                     {formatTime(first.createdAt, dateLocale(locale))}
                   </span>

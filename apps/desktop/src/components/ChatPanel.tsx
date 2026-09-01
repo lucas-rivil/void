@@ -11,9 +11,10 @@ interface Props {
   myOnionId: string | null;
   online: boolean;
   peerProfiles: PeerProfileInfo[];
+  onOpenProfile: (onionId: string) => void;
 }
 
-export default function ChatPanel({ entry, myOnionId, online, peerProfiles }: Props) {
+export default function ChatPanel({ entry, myOnionId, online, peerProfiles, onOpenProfile }: Props) {
   const { t } = useI18n();
   const [messages, setMessages] = useState<DmMessage[]>([]);
   const [copied, setCopied] = useState(false);
@@ -127,6 +128,7 @@ export default function ChatPanel({ entry, myOnionId, online, peerProfiles }: Pr
         emptyTitle={t("chat.emptyTitle", { name: entry.displayName })}
         emptyHint={t("chat.emptyHint")}
         peerProfiles={peerProfiles}
+        onOpenProfile={onOpenProfile}
       />
 
       <div className="relative z-10">
